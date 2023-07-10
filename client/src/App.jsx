@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Navbar from './pages/Navbar';
 import Profil from './pages/Profil';
 import EditProfil from './pages/EditProfil';
+import AddPost from './pages/AddPost';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/profil/:id' element={<Profil/>}/>
         <Route path='/edit-profil/:id' element={<EditProfil/>}/>
+        <Route path='/add-post/:id' element={<AddPost/>}/>
       </Routes>
     </div>
   );

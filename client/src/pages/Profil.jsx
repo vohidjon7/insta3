@@ -4,20 +4,31 @@ import { useNavigate, useParams } from 'react-router-dom';
 function Profil(props) {
     const param = useParams()
     const navigate = useNavigate()
-    const [user,setUser] = useState()
-    console.log(user);
-    function getUser(){
+    const [user, setUser] = useState()
+    const [post, setPost] = useState()
+    function getUser() {
         fetch(`http://localhost:5000/get-user/${param.id}`)
-        .then(res => res.json())
-        .then(data =>{
-            setUser(data)
-        })
+            .then(res => res.json())
+            .then(data => {
+                setUser(data)
+            })
     }
-    useEffect(()=>{
+    function getPost() {
+        fetch(`http://localhost:5000/get-post/${param.id}`)
+            .then(res => res.json())
+            .then(data => {
+                setPost(data);
+            })
+    }
+    useEffect(() => {
+        getPost()
         getUser()
-    },[])
-    function Navigate(){
+    }, [])
+    function Navigate() {
         navigate(`/edit-profil/${user?.id}`)
+    }
+    function Navigate1() {
+        navigate(`/add-post/${user?.id}`)
     }
     return (
         <div>
@@ -28,6 +39,21 @@ function Profil(props) {
                 <img className='img' src={user?.foydalanuvchi_img} alt="rasm" />
             </div>
             <button className='btn btn-outline-primary' onClick={Navigate}>Edit Profil</button>
+            <button className='btn btn-outline-primary' onClick={Navigate1}>Add Post</button>
+            <div className=''>
+                {
+                    post?.map((e, idx) => {
+                        return (
+                            <div className="card" style={{ width: '18rem'}}>
+                                <img src={e?.img_url} className="card-img-top" alt="..." />
+                                <div className="card-body">
+                                    <p className="card-text">{e?.post}</p>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
     );
 }
