@@ -43,10 +43,10 @@ app.post('/login', async (req, res) => {
         console.log(error);
     }
 })
-app.get('/get-user/:id',async (req,res)=>{
-    const {id} = req.params;
+app.get('/get-user/:id', async (req, res) => {
+    const { id } = req.params;
     try {
-        let user = await pool.query('SELECT * FROM foydalanuvchi WHERE id = ($1)',[id])
+        let user = await pool.query('SELECT * FROM foydalanuvchi WHERE id = ($1)', [id])
         res.send(user.rows[0])
     } catch (error) {
         console.log(error);
@@ -55,7 +55,7 @@ app.get('/get-user/:id',async (req,res)=>{
 app.put('/edit-profil/:id', async (req, res) => {
     try {
         const { login, email, password, bio, img } = req.body;
-        const {id} = req.params;
+        const { id } = req.params;
         if (!login || !email || !password) {
             return res.json({ xato: 'Malumotlarni to`liq kiriting' })
         }
@@ -63,6 +63,34 @@ app.put('/edit-profil/:id', async (req, res) => {
             let user = await pool.query('UPDATE foydalanuvchi SET login = ($1), email = ($2), password = ($3), bio = ($4), foydalanuvchi_img = ($5) WHERE id = ($6)', [login, email, password, bio, img, id])
             res.send(user.rows)
         }
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+
+app.post('/add-post/:id', async (req, res) => {
+    try {
+        const { img, post } = req.body;
+        console.log(img);
+        const { id } = req.params;
+        console.log(id);
+        if (!img || !post || !id) {
+            return res.json({ xato: 'Malumotlarni to`liq kiriting' })
+        } else {
+            let data = await pool.query("INSERT INTO post(img_url,post,user_id) VALUES($1,$2,$3) RETURNING *",[img,post,id])
+            console.log(data.rows);
+            res.send(data.rows)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+})
+app.get('/get-post/:id',async(req,res)=>{
+    try {
+        const {id} = req.params;
+        let data = await pool.query("SELECT * FROM post WHERE user_id = ($1)",[id])
+        res.send(data.rows)
     } catch (error) {
         console.log(error);
     }
