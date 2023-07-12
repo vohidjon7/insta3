@@ -30,6 +30,10 @@ function Profil(props) {
     function Navigate1() {
         navigate(`/add-post/${user?.id}`)
     }
+
+    function Navigate2() {
+        navigate(`/edit-post/${user?.id}`)
+    }
     return (
         <div>
             <div>
@@ -48,6 +52,7 @@ function Profil(props) {
                                 <img src={e?.img_url} className="card-img-top" alt="..." />
                                 <div className="card-body">
                                     <p className="card-text">{e?.post}</p>
+                                    <button className='btn btn-outline-danger' onClick={Navigate2}>Edit</button>
                                 </div>
                             </div>
                         )

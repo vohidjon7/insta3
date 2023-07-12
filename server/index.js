@@ -96,6 +96,32 @@ app.get('/get-post/:id',async(req,res)=>{
     }
 })
 
+app.put('/edit-post/:id',async(req,res)=>{
+    try {
+        const {img_url,post} = req.body
+        const {id} = req.params
+        if (!img_url || !post) {
+            return res.json({xato:'Malumotlarni to`liq kiriting'})
+        } else {
+            let user = await pool.query('UPDATE post SET img_url=($1),post = ($2) WHERE id = ($3)',[img_url,post,id])
+            res.send(user.rows)
+        } 
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+app.get('/get-post1/:id',async (req,res)=>{
+    const {id} = req.params;
+    try {
+        let data = await pool.query("SELECT * FROM post WHERE id = ($1)",[id])
+        res.send(data.rows[0])
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
     console.log('Server is runnig');

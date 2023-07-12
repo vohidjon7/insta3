@@ -6,6 +6,8 @@ import Navbar from './pages/Navbar';
 import Profil from './pages/Profil';
 import EditProfil from './pages/EditProfil';
 import AddPost from './pages/AddPost';
+import EditPost from './pages/EditPost';
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
         <Route path='/profil/:id' element={<Profil/>}/>
         <Route path='/edit-profil/:id' element={<EditProfil/>}/>
         <Route path='/add-post/:id' element={<AddPost/>}/>
+        <Route path='/edit-post/:id' element={<EditPost/>} />
       </Routes>
     </div>
   );
