@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const EditPost = () => {
     const [img_url,setImg] = useState()
-    const [post,setPost] = useState(
+    const [post,setPost] = useState()
     const [user,setUser] = useState()
     const param = useParams()
     const navigate = useNavigate()
