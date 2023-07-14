@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const EditPost = () => {
     const [img_url,setImg] = useState()
-    const [post,setPost] = useState()
+    const [post,setPost] = useState(
+    const [user,setUser] = useState()
     const param = useParams()
     const navigate = useNavigate()
 
@@ -16,9 +17,14 @@ const EditPost = () => {
             setPost(data?.post)
         })
     }
+    function getUser() {
+            let data = JSON.parse(localStorage.getItem("user"));
+            setUser(data);
+    }
 
     useEffect(() => {
         getPost()
+      getUser()
     }, []);
 
 
@@ -32,7 +38,7 @@ const EditPost = () => {
                 if (data.xato) {
                     window.alert(data.xato)
                 }else{
-                    navigate(`/profil/${param.id}`)
+                    navigate(`/profil/${user?.id}`)
                 }
             })
 
@@ -42,7 +48,7 @@ const EditPost = () => {
             <div className='register1'>
             <input type="text" className='form-control mt-3' placeholder='img' value={img_url} onChange={(e) => setImg(e.target.value)} />
             <input type="text" className='form-control mt-3' placeholder='post' value={post} onChange={(e) => setPost(e.target.value)} />
-            <button className='btn btn-outline-primary m-3' onClick={()=>navigate(`/profil/${param.id}`)}>Back</button>
+            <button className='btn btn-outline-primary m-3' onClick={()=>navigate(`/profil/${user?.id}`)}>Back</button>
             <button className='btn btn-outline-primary m-3' onClick={EditPost} >Edit Profil</button>
             </div>
         </div>

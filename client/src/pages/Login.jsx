@@ -16,6 +16,8 @@ function Login(props) {
                 if (data.xato) {
                     window.alert(data.xato)
                 }else{
+
+                    localStorage.setItem("user",JSON.stringify(data))
                     navigate(`/profil/${data.id}`)
                 }
             })
