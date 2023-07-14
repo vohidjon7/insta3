@@ -121,6 +121,18 @@ app.get('/get-post1/:id',async (req,res)=>{
     }
 })
 
+app.delete('/delete-post',async(req,res)=>{
+    const {id} = req.body
+    try {
+        let data = await pool.query('DELETE FROM post WHERE id = ($1)',[id])
+        let data1 = await pool.query('SELECT * FROM post')
+        res.send(data1.rows)
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {

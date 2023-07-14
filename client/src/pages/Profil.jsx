@@ -20,6 +20,23 @@ function Profil(props) {
                 setPost(data);
             })
     }
+
+    function DeletePost(id){
+        fetch(`http://localhost:5000/delete-post`,{
+            method: "DELETE",
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({id})
+        }).then(res => res.json())
+            .then(data =>{
+                if (data.xato) {
+                    window.alert(data.xato)
+                }else{
+                    window.alert('Uchirildi')
+                    setPost(data);              
+                }
+            })
+
+    }
     useEffect(() => {
         getPost()
         getUser()
@@ -31,8 +48,8 @@ function Profil(props) {
         navigate(`/add-post/${user?.id}`)
     }
 
-    function Navigate2() {
-        navigate(`/edit-post/${user?.id}`)
+    function Navigate2(id) {
+        navigate(`/edit-post/${id}`)
     }
     return (
         <div>
@@ -52,7 +69,8 @@ function Profil(props) {
                                 <img src={e?.img_url} className="card-img-top" alt="..." />
                                 <div className="card-body">
                                     <p className="card-text">{e?.post}</p>
-                                    <button className='btn btn-outline-danger' onClick={Navigate2}>Edit</button>
+                                    <button className='btn btn-outline-danger' onClick={()=>{Navigate2(e?.id)}}>Edit</button>
+                                    <button className='btn btn-outline-warning' onClick={()=>{DeletePost(e?.id)}}>Delete</button>
                                 </div>
                             </div>
                         )
