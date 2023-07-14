@@ -53,6 +53,7 @@ function Profil(props) {
                                 <div className="card-body">
                                     <p className="card-text">{e?.post}</p>
                                     <button className='btn btn-outline-danger' onClick={()=>Navigate2(e?.id)}>Edit</button>
+
                                 </div>
                             </div>
                         )
