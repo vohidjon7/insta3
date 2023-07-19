@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { json, useNavigate, useParams } from 'react-router-dom';
 
 const EditPost = () => {
     const [img_url,setImg] = useState()
-    const [post,setPost] = useState(
-    const [user,setUser] = useState()
+    const [post,setPost] = useState()
+    const [user, setUser] = useState()
     const param = useParams()
     const navigate = useNavigate()
 
@@ -18,13 +18,14 @@ const EditPost = () => {
         })
     }
     function getUser() {
-            let data = JSON.parse(localStorage.getItem("user"));
-            setUser(data);
+        let data = JSON.parse(localStorage.getItem("user"))
+        setUser(data)
     }
+
 
     useEffect(() => {
         getPost()
-      getUser()
+        getUser()
     }, []);
 
 
