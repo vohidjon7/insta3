@@ -22,3 +22,6 @@
 .navbar{
     background: rgba(0, 0, 0, 0.422);
 }
+.out{
+    cursor: pointer;
+}

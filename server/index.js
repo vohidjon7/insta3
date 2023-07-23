@@ -160,6 +160,39 @@ app.delete("/delete-post", async (req, res) => {
   }
 });
 
+app.post(`/like/:id`, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { user_id } = req.body;
+    if (!user_id) {
+      return res.json({ xato: "Ro'yxatan o'ting" });
+    } else {
+      let data = await pool.query("INSERT INTO likes(post_id,user_id) VALUES($1,$2) RETURNING *", [id, user_id])
+      res.send(data.rows)
+    }
+  } catch (error) {
+    console.log(error);
+  }
+})
+app.delete(`/unlike`, async (req, res) => {
+  try {
+    const { id } = req.body;
+    let data = await pool.query("DELETE FROM likes WHERE id = ($1)", [id])
+    let data1 = await pool.query("SELECT * FROM likes")
+    res.send(data1.rows)
+  } catch (error) {
+    console.log(error);
+  }
+})
+app.get('/like', async (req, res) => {
+  try {
+    let data = await pool.query("SELECT * FROM likes")
+    res.send(data.rows)
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("Server is runnig");
