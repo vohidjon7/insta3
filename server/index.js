@@ -159,6 +159,11 @@ app.delete("/delete-post", async (req, res) => {
     console.log(error);
   }
 });
+app.get("/home", async(req, res) => {
+ let  data = await pool.query("SELECT * FROM  post")
+ res.send(data.rows)
+ console.log(data);
+})
 
 app.post(`/like/:id`, async (req, res) => {
   try {

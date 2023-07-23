@@ -39,7 +39,7 @@ const EditPost = () => {
                 if (data.xato) {
                     window.alert(data.xato)
                 }else{
-                    navigate(`/profil/${user?.id}`)
+                    navigate(`/user/profil/${user?.id}`)
                 }
             })
 
@@ -49,7 +49,7 @@ const EditPost = () => {
             <div className='register1'>
             <input type="text" className='form-control mt-3' placeholder='img' value={img_url} onChange={(e) => setImg(e.target.value)} />
             <input type="text" className='form-control mt-3' placeholder='post' value={post} onChange={(e) => setPost(e.target.value)} />
-            <button className='btn btn-outline-primary m-3' onClick={()=>navigate(`/profil/${user?.id}`)}>Back</button>
+            <button className='btn btn-outline-primary m-3' onClick={()=>navigate(`/user/profil/${user?.id}`)}>Back</button>
             <button className='btn btn-outline-primary m-3' onClick={EditPost} >Edit Profil</button>
             </div>
         </div>
