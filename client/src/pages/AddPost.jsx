@@ -18,7 +18,7 @@ function AddPost(props) {
             if (data.xato) {
                 window.alert(data.xato)
             }else{
-                navigate(`/profil/${param.id}`)
+                navigate(`/user/profil/${param.id}`)
             }
         })
     }
@@ -29,7 +29,7 @@ function AddPost(props) {
                 <form >
                     <input type="text" className='form-control mt-3' placeholder='Img' value={img} onChange={(e) => setImg(e.target.value)} />
                     <input type="text" className='form-control mt-3' placeholder='Post' value={post} onChange={(e) => setPost(e.target.value)} />
-                    <button className='btn btn-outline-primary m-3' onClick={() => navigate(`/profil/${param.id}`)} >Back</button>
+                    <button className='btn btn-outline-primary m-3' onClick={() => navigate(`/user/profil/${param.id}`)} >Back</button>
                     <button className='btn btn-outline-primary m-3' onClick={AddPost} >Add Post</button>
                 </form>
             </div>
