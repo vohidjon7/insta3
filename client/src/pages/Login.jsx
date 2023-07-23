@@ -17,17 +17,17 @@ function Login(props) {
                     window.alert(data.xato)
                 }else{
                     localStorage.setItem("user", JSON.stringify(data))
-                    navigate(`/profil/${data.id}`)
+                    navigate(`/user/profil/${data.id}`)
                 }
             })
     }
     return (
         <div className='register'>
-            <div className="register1">
+            <div className="register1" >
                 <form onSubmit={Register}>
                     <input type="text" className='form-control mt-3' placeholder='Login' value={login} onChange={(e) => setLogin(e.target.value)} />
                     <input type="password" className='form-control mt-3' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-                    <button className='btn btn-outline-primary mt-3' onClick={Register}>Login</button>
+                    <button className='btn btn-outline-primary mt-3'  onClick={Register} >Login</button>
                 </form>
             </div>
         </div>
