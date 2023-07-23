@@ -15,13 +15,15 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path='/' element={<h1>Home</h1>}/>
-        <Route path='/register' element={<Register/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/profil/:id' element={<Profil/>}/>
-        <Route path='/edit-profil/:id' element={<EditProfil/>}/>
-        <Route path='/add-post/:id' element={<AddPost/>}/>
-        <Route path='/edit-post/:id' element={<EditPost/>} />
+        <Route path='/' element={<Home />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+        <Route path="/user" element={<Protected />}>
+          <Route path='profil/:id' element={<Profil />} />
+          <Route path='edit-profil/:id' element={<EditProfil />} />
+          <Route path='add-post/:id' element={<AddPost />} />
+          <Route path='edit-post/:id' element={<EditPost />} />
+        </Route>
       </Routes>
     </div>
   );
