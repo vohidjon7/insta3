@@ -98,7 +98,7 @@ function Profil(props) {
                 {
                     post?.map((e, idx) => {
                         return (
-                            <div className="mb-4" style={{ width: '18rem' }}>
+                            <div className="m-4" style={{ width: '18rem' }}>
                                 <img src={e?.img_url} className="card-img-top" style={{ height: "200px" }} alt="..." />
                                 <div className="card-body">
                                     <p className="card-text">{e?.post}</p>
