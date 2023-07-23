@@ -42,17 +42,17 @@ function Profil(props) {
         getUser()
     }, [])
     function Navigate() {
-        navigate(`/edit-profil/${user?.id}`)
+        navigate(`/user/edit-profil/${user?.id}`)
     }
     function Navigate1() {
-        navigate(`/add-post/${user?.id}`)
+        navigate(`/user/add-post/${user?.id}`)
     }
 
     function Navigate2(id) {
-        navigate(`/edit-post/${id}`)
+        navigate(`/user/edit-post/${id}`)
     }
     return (
-        <div>
+        <div className='profil'>
             <div className='mt-4'>
                 <img className='img mb-4' style={{borderRadius:"50%"}} width="200px" height="200px"  src={user?.foydalanuvchi_img} alt="rasm" />
                 <h3>{user?.login}</h3>
@@ -61,7 +61,7 @@ function Profil(props) {
             </div>
             <button className='btn btn-outline-primary mt-4 m-2' onClick={Navigate}>Edit Profil</button>
             <button className='btn btn-outline-primary mt-4 m-2' onClick={Navigate1}>Add Post</button>
-            <div className='card container'>
+            <div className='container'>
                 {
                     post?.map((e, idx) => {
                         return (
