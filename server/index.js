@@ -12,7 +12,7 @@ app.post("/register", async (req, res) => {
   try {
     const { login, email, password } = req.body;
     let user1 = await pool.query(
-      "SELECT * FROM foydalanuvchi WHERE login = ($1)",
+      "SELECT * FROM users WHERE login = ($1)",
       [login]
     );
     if (!login || !email || !password) {
@@ -22,7 +22,7 @@ app.post("/register", async (req, res) => {
       return res.json({ xato: "Bunday loginli foydalanuvchi mavjud" });
     } else {
       let user = await pool.query(
-        "INSERT INTO foydalanuvchi(login,email,password) VALUES($1,$2,$3) RETURNING *",
+        "INSERT INTO users(login,email,password) VALUES($1,$2,$3) RETURNING *",
         [login, email, password]
       );
       res.send(user.rows[0]);
@@ -36,7 +36,7 @@ app.post("/login", async (req, res) => {
   try {
     const { login, password } = req.body;
     let user = await pool.query(
-      "SELECT * FROM foydalanuvchi WHERE login = ($1)",
+      "SELECT * FROM users WHERE login = ($1)",
       [login]
     );
     if (!login || !password) {
@@ -57,7 +57,7 @@ app.post("/login", async (req, res) => {
 app.get("/get-user/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    let user = await pool.query("SELECT * FROM foydalanuvchi WHERE id = ($1)", [
+    let user = await pool.query("SELECT * FROM users WHERE user_id = ($1)", [
       id,
     ]);
     res.send(user.rows[0]);
@@ -73,7 +73,7 @@ app.put("/edit-profil/:id", async (req, res) => {
       return res.json({ xato: "Malumotlarni to`liq kiriting" });
     } else {
       let user = await pool.query(
-        "UPDATE foydalanuvchi SET login = ($1), email = ($2), password = ($3), bio = ($4), foydalanuvchi_img = ($5) WHERE id = ($6)",
+        "UPDATE users SET login = ($1), email = ($2), password = ($3), bio = ($4), foydalanuvchi_img = ($5) WHERE user_id = ($6)",
         [login, email, password, bio, img, id]
       );
       res.send(user.rows);
@@ -97,7 +97,6 @@ app.post("/add-post/:id", async (req, res) => {
         "INSERT INTO post(img_url,post,user_id) VALUES($1,$2,$3) RETURNING *",
         [img, post, id]
       );
-      console.log(data.rows);
       res.send(data.rows);
     }
   } catch (error) {
@@ -127,7 +126,7 @@ app.put("/edit-post/:id", async (req, res) => {
       return res.json({ xato: "Malumotlarni to`liq kiriting" });
     } else {
       let user = await pool.query(
-        "UPDATE post SET img_url=($1),post = ($2) WHERE id = ($3)",
+        "UPDATE post SET img_url=($1),post = ($2) WHERE post_id = ($3)",
         [img_url, post, id]
       );
       res.send(user.rows);
@@ -140,7 +139,7 @@ app.put("/edit-post/:id", async (req, res) => {
 app.get("/get-post1/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    let data = await pool.query("SELECT * FROM post WHERE id = ($1)", [id]);
+    let data = await pool.query("SELECT * FROM post WHERE post_id = ($1)", [id]);
     res.send(data.rows[0]);
   } catch (error) {
     console.log(error);
@@ -149,8 +148,10 @@ app.get("/get-post1/:id", async (req, res) => {
 
 app.delete("/delete-post", async (req, res) => {
   const { id, user_id } = req.body;
+  console.log(id);
   try {
-    let data = await pool.query("DELETE FROM post WHERE id = ($1)", [id]);
+    let data0 = await pool.query("DELETE FROM likes WHERE post1_id = ($1)", [id]);
+    let data = await pool.query("DELETE FROM post WHERE post_id = ($1)", [id]);
     let data1 = await pool.query("SELECT * FROM post WHERE user_id = ($1)", [
       user_id,
     ]);
@@ -159,12 +160,34 @@ app.delete("/delete-post", async (req, res) => {
     console.log(error);
   }
 });
-app.get("/home", async(req, res) => {
- let  data = await pool.query("SELECT * FROM  post")
- res.send(data.rows)
- console.log(data);
+app.get("/home", async (req, res) => {
+  let data = await pool.query("SELECT * FROM  post LEFT JOIN likes ON post.post_id = likes.post1_id")
+  res.send(data.rows)
 })
-
+app.post("/like", async (req, res) => {
+  try {
+    const { post_id, user_id } = req.body;
+    if (!user_id) {
+      return res.json({ xato: "Ro'yhatdan o'tilmagan" });
+    } else {
+      let data = await pool.query("INSERT INTO likes(post1_id, user1_id, istrue) VALUES($1,$2,$3) RETURNING *", [post_id, user_id, true])
+      let data1 = await pool.query("SELECT * FROM  post LEFT JOIN likes ON post.post_id = likes.post1_id")
+      res.send(data1.rows)
+    }
+  } catch (error) {
+    console.log(error);
+  }
+})
+app.delete("/unlike", async (req, res) => {
+  const { id } = req.body;
+  try {
+    let data = await pool.query("DELETE FROM likes WHERE post1_id = ($1)", [id]);
+    let data1 = await pool.query("SELECT * FROM  post LEFT JOIN likes ON post.post_id = likes.post1_id")
+    res.send(data1.rows);
+  } catch (error) {
+    console.log(error);
+  }
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("Server is runnig");

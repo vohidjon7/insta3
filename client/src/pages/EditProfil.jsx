@@ -49,8 +49,8 @@ function EditProfil(props) {
                     <input type="password" className='form-control mt-3' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
                     <input type="text" className='form-control mt-3' placeholder='Bio' value={bio} onChange={(e) => setBio(e.target.value)} />
                     <input type="text" className='form-control mt-3' placeholder='Img' value={img} onChange={(e) => setImg(e.target.value)} />
-                    <button className='btn btn-outline-primary m-3' onClick={()=>navigate(`/user/profil/${param.id}`)} >Back</button>
-                    <button className='btn btn-outline-primary m-3' onClick={EditProfil} >Edit Profil</button>
+                    <button className='btn btn-warning m-3' style={{color:"white"}} onClick={()=>navigate(`/user/profil/${param.id}`)} >Back</button>
+                    <button className='btn btn-warning m-3' style={{color:"white"}} onClick={EditProfil} >Edit Profil</button>
                 </form>
             </div>
         </div>

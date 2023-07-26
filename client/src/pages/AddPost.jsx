@@ -26,11 +26,11 @@ function AddPost(props) {
         <div className='register'>
             <div className="register1">
                 <h1 >Add Post</h1>
-                <form >
+                <form onSubmit={AddPost}>
                     <input type="text" className='form-control mt-3' placeholder='Img' value={img} onChange={(e) => setImg(e.target.value)} />
                     <input type="text" className='form-control mt-3' placeholder='Post' value={post} onChange={(e) => setPost(e.target.value)} />
-                    <button className='btn btn-outline-primary m-3' onClick={() => navigate(`/user/profil/${param.id}`)} >Back</button>
-                    <button className='btn btn-outline-primary m-3' onClick={AddPost} >Add Post</button>
+                    <button className='btn btn-warning m-3' style={{color:"white"}} onClick={() => navigate(`/user/profil/${param.id}`)} >Back</button>
+                    <button className='btn btn-warning m-3' style={{color:"white"}} onClick={AddPost} >Add Post</button>
                 </form>
             </div>
         </div>

@@ -10,12 +10,12 @@ function Navbar(props) {
         setUser(data)
     }
     useEffect(() => {
-       getUser()
+        getUser()
     }, [localStorage.getItem("user")])
     function LogOut() {
-      localStorage.clear()
-      navigate('/login')
-      setUser('')
+        localStorage.clear()
+        navigate('/login')
+        setUser('')
     }
     return (
         <div>
@@ -23,27 +23,33 @@ function Navbar(props) {
                 <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         {
-                            user?.login ? 
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <NavLink className="nav-link active" style={{color:"white"}} aria-current="page" to={'/'}>Home</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link active" style={{color:"white"}} aria-current="page" to={`/user/profil/${user?.id}`}>{user?.login}</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link active out" style={{color:"white"}} aria-current="page" onClick={LogOut} >Log Out</a>
-                            </li>
-                        </ul>
-                            :
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <NavLink className="nav-link active" style={{color:"white"}} aria-current="page" to={'/register'}>Register</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link active" style={{color:"white"}} aria-current="page" to={'/login'}>Login</NavLink>
-                            </li>
-                        </ul>
+                            user?.login ?
+                                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li className="nav-item">
+                                        <NavLink className="btn btn-warning mt-2 m-2 pt-2" style={{ color: "white" }} aria-current="page" to={'/'}><i className="material-icons">store</i></NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="btn btn-warning mt-2 m-2 pt-2" style={{ color: "white" }} aria-current="page" to={`/user/profil/${user?.user_id}`}><i className="material-icons">account_box</i></NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="btn btn-warning mt-2 m-2 pt-2 out" style={{ color: "white" }} aria-current="page" onClick={LogOut} ><i className="material-icons">keyboard_tab</i></a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <p class="fst-italic">{user.login}</p>
+                                    </li>
+                                </ul>
+                                :
+                                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li className="nav-item">
+                                        <NavLink className="btn btn-warning mt-2 m-2 pt-2" style={{ color: "white" }} aria-current="page" to={'/'}>Home</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="btn btn-warning mt-2 m-2 pt-2" style={{ color: "white" }} aria-current="page" to={'/register'}>Register</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="btn btn-warning mt-2 m-2 pt-2" style={{ color: "white" }} aria-current="page" to={'/login'}>Login</NavLink>
+                                    </li>
+                                </ul>
                         }
                     </div>
                 </div>

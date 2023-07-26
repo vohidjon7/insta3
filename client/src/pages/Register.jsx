@@ -19,7 +19,7 @@ function Register(props) {
                     window.alert(data.xato)
                 }else{
                     localStorage.setItem("user", JSON.stringify(data))
-                    navigate(`/user/profil/${data.id}`)
+                    navigate(`/user/profil/${data.user_id}`)
                 }
             })
     }
@@ -30,7 +30,7 @@ function Register(props) {
                     <input type="text" className='form-control mt-3' placeholder='Login' value={login} onChange={(e) => setLogin(e.target.value)} />
                     <input type="text" className='form-control mt-3' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
                     <input type="password" className='form-control mt-3' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-                    <button className='btn btn-outline-primary mt-3' style={{color:"white"}} onClick={Register}>Register</button>
+                    <button className='btn btn-warning mt-3' style={{color:"white"}} onClick={Register}>Register</button>
                 </form>
             </div>
         </div>
